@@ -5,3 +5,5 @@ venv/
 .venv/
 .pytest_cache/
 *.db
+auto_restaurant/
+.vscode/
