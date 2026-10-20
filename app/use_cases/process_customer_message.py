@@ -66,7 +66,7 @@ class ProcessCustomerMessage:
         reply = "\n".join(lines)
         conversation.add_message("bot", reply)
         self.conversation_repo.save(conversation)
-        self.sender.send(restaurant_id, customer, reply)
+        self.sender.send(customer, restaurant_id,  reply)
         return reply
 
 

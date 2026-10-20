@@ -5,9 +5,9 @@ from app.domain.entities.order import Order
 
 # ---------- شكل الطلبات الداخلة ----------
 class DevMessage(BaseModel):
-    customer_id: str
-    text: str
-    channel: str = "dev"
+    customer_id: str = 201021333428
+    text:str = "المنيو"
+    channel: str = "whatsapp"
 
 
 class RejectBody(BaseModel):

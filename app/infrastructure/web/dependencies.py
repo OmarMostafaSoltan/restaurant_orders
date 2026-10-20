@@ -3,6 +3,8 @@ import secrets
 
 from fastapi import Header, HTTPException
 
+from app.adapters.channels.multi_channels_sender import MultiChannelSender
+from app.adapters.channels.whatsapp_adapter import WhatsAppSender
 from app.adapters.parsers.simple_order_parser import SimpleOrderParser
 from app.adapters.channels.consol_adapter import ConsoleNotificationSender
 from app.adapters.websocket.console_puplisher import ConsolePublisher
@@ -24,7 +26,15 @@ from app.use_cases.reject_order import RejectOrder
 menu_repo = InMemoryMenuRepository()
 order_repo = InMemoryOrderRepository()
 conversation_repo = InMemoryConversationRepository()
-sender = ConsoleNotificationSender()
+
+sender = MultiChannelSender({
+    "dev": ConsoleNotificationSender(),
+    "whatsapp": WhatsAppSender(
+        settings.whatsapp_token,
+        settings.whatsapp_phone_number_id,
+        settings.whatsapp_api_version,
+    ),
+})
 publisher = ConsolePublisher()
 parser = SimpleOrderParser()
 

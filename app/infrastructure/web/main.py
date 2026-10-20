@@ -2,7 +2,7 @@ from fastapi import FastAPI, Request
 from fastapi.responses import JSONResponse
 
 from app.domain.exceptions import DomainError, InvalidOrderState, OrderNotFound
-from app.infrastructure.web.routers import kds_dashboard, webhooks
+from app.infrastructure.web.routers import kds_dashboard, dev, whatsapp_webhook
 
 app = FastAPI(title="Restaurant Automation")
 
@@ -28,5 +28,6 @@ async def domain_error_handler(request: Request, exc: DomainError):
     return JSONResponse(status_code=400, content={"detail": str(exc)})
 
 
-app.include_router(webhooks.router)
+app.include_router(dev.router)
 app.include_router(kds_dashboard.router)
+app.include_router(whatsapp_webhook.router)
